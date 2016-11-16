@@ -1,0 +1,13 @@
+[Unit]
+Description=API wrapper container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker run --name apiwrapper_instance -p 5000:5000 apiwrapper
+ExecStop=/usr/bin/docker stop -t 2 apiwrapper_instance
+ExecStopPost=/usr/bin/docker rm -f apiwrapper_instance
+
+[Install]
+WantedBy=default.target
